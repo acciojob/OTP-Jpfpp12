@@ -39,7 +39,6 @@
     </style>
 </head>
 <body>
-<!-- the entire body must be written by student -->
     <div class="container">
         <h2 id="verification_heading">Verify Your Account</h2>
         <p id="verification_subtext">Enter the 6-digit code sent to your registered mobile number.</p>
@@ -55,6 +54,9 @@
     <script>
         const inputs = document.querySelectorAll('.code');
         
+        // Autofocus the first input on page load
+        window.onload = () => inputs[0].focus();
+        
         inputs.forEach((input, index) => {
             input.addEventListener('input', (e) => {
                 if (e.target.value.length === 1 && index < inputs.length - 1) {
@@ -64,8 +66,13 @@
 
             input.addEventListener('keydown', (e) => {
                 if (e.key === 'Backspace') {
-                    if (e.target.value === '' && index > 0) {
-                        inputs[index - 1].focus();
+                    if (e.target.value === '') {
+                        if (index > 0) {
+                            inputs[index - 1].focus();
+                            inputs[index - 1].value = '';
+                        }
+                    } else {
+                        e.target.value = '';
                     }
                 }
             });
